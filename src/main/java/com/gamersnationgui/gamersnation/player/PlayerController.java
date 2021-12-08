@@ -2,15 +2,16 @@ package com.gamersnationgui.gamersnation.player;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+
+import static org.springframework.data.util.CastUtils.cast;
 
 //This is the API Layer
 @Component
@@ -18,6 +19,9 @@ import java.util.List;
 @RequestMapping(path = "api/v1/player")
 public class PlayerController {
     private final PlayerService playerService;
+    String responesBodyOnSummonerName;
+    String responesBodyOnSummonerID;
+    String summonerID;
 
     @Autowired
     public PlayerController(PlayerService playerService) {
@@ -37,19 +41,32 @@ public class PlayerController {
 
     @FXML
     public Label signUpLbl;
-
-    @FXML
+    public TextField summonerNameField;
+    public Button findPlayer;
+    public TextField showSummonerName;
+    public ChoiceBox modeChoiceBox;
+    public TextField playerLvl;
+    public TextField playerRank;
+    public Slider toleranceSlider;
+    public Slider commitmentSlider;
+    public ChoiceBox vcChoiceBox;
+    public ChoiceBox positionChoiceBox;
     public Button signUpBtn;
 
     @FXML
-    public ComboBox playerListComBox;
-
-    @FXML
-    public TextField summonerNameField;
-
-    @FXML
     public void initialize(){
-        this.signUpBtn.setOnAction(actionEvent -> playerService.httpRequestBySummonername(summonerNameField.getText()));
-        this.playerListComBox.setItems(FXCollections.observableArrayList(playerService.getPlayers()));
+        this.findPlayer.setOnAction(actionEvent -> {
+            responesBodyOnSummonerName = playerService.httpRequestBySummonername(summonerNameField.getText());
+            summonerID = playerService.parseEncryptedSummonerID(responesBodyOnSummonerName);
+            this.playerLvl.setText(""+playerService.parseLvl(responesBodyOnSummonerName));
+            responesBodyOnSummonerID = playerService.httpRequestByEncryptedSummonerID(summonerID);
+            this.playerRank.setText(playerService.parseRank(responesBodyOnSummonerID));
+            this.showSummonerName.setText(this.summonerNameField.getText());
+        });
+        this.modeChoiceBox.getItems().add("Ranked");
+        this.modeChoiceBox.getItems().add("Normal");
+        this.vcChoiceBox.getItems().add("On");
+        this.vcChoiceBox.getItems().add("Off");
+        //this.playerListComBox.setItems(FXCollections.observableArrayList(playerService.getPlayers()));
     }
 }
