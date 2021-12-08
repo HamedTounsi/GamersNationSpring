@@ -4,15 +4,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.List;
-
 @Configuration
 public class PlayerConfig {
 
     @Bean
     CommandLineRunner commandLineRunner(PlayerRepository repository) {
         return args -> {
-            Player hamed = new Player(
+            Player player = new Player(
                     "Hamed",
                     "Hamedxoxo",
                     true,
@@ -23,7 +21,7 @@ public class PlayerConfig {
                     1,
                     1
             );
-            repository.save(hamed);
+            repository.save(player);
         };
     }
 }

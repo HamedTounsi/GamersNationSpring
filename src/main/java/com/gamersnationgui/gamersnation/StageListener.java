@@ -36,14 +36,12 @@ public class StageListener implements ApplicationListener<StageReadyEvent> {
             FXMLLoader fxmlLoader = new FXMLLoader(url);
             fxmlLoader.setControllerFactory(applicationContext::getBean); //ansvarlig for at forbinde PlayerController med GUI.fxml
             Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root, 600, 500);
+            Scene scene = new Scene(root, 600, 600);
             stage.setScene(scene);
             stage.setTitle(this.applicationTitle);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 }

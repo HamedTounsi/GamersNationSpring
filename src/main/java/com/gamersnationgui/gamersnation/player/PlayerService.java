@@ -1,11 +1,20 @@
 package com.gamersnationgui.gamersnation.player;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.data.util.CastUtils.cast;
 
 @Service
 public class PlayerService {
@@ -29,5 +38,33 @@ public class PlayerService {
         } else {
             playerRepository.save(player);
         }
+    }
+
+    public ArrayList<String> getPlayers(){
+        ArrayList<String> playerNames = playerRepository.findALlPlayerNames();
+        return playerNames;
+    }
+
+    public String httpRequestBySummonername(String summonerName){
+        if (summonerName != null) {
+            try {
+                HttpClient client = HttpClient.newHttpClient();
+                HttpRequest request = HttpRequest.newBuilder(
+                                URI.create("https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + summonerName))
+                        .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36 OPR/80.0.4170.91")
+                        .header("Accept-Language", "en-GB,en-US;q=0.9,en;q=0.8")
+                        .header("Accept-Charset", "application/x-www-form-urlencoded; charset=UTF-8")
+                        .header("Origin", "https://developer.riotgames.com")
+                        .header("X-Riot-Token", "RGAPI-232bfc90-0141-4d09-87cb-bd67015cd3d9")
+                        .build();
+                HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                return response.body();
+            }catch (IOException e){
+                e.printStackTrace();
+            }catch (InterruptedException e){
+                e.printStackTrace();
+            }
+        }
+        return "Summonername not found!";
     }
 }

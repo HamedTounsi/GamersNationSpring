@@ -1,19 +1,14 @@
 package com.gamersnationgui.gamersnation;
 
-import com.gamersnationgui.gamersnation.player.PlayerController;
-import com.gamersnationgui.gamersnation.player.PlayerRepository;
-import com.gamersnationgui.gamersnation.player.PlayerService;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.application.Platform;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
-import org.springframework.stereotype.Service;
 
 
 public class GamersNationApplication extends Application {
@@ -49,8 +44,8 @@ public class GamersNationApplication extends Application {
 }
 
 class StageReadyEvent extends ApplicationEvent {
-    public static Stage getStage(){
-        return Stage.class.cast(getStage());
+    public Stage getStage(){
+        return Stage.class.cast(getSource());
     }
 
     public StageReadyEvent(Stage source) {
