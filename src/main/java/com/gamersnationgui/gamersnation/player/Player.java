@@ -2,6 +2,7 @@ package com.gamersnationgui.gamersnation.player;
 
 import javax.persistence.*;
 
+//Model
 @Entity
 @Table
 public class Player{

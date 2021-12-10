@@ -5,7 +5,7 @@
 
 <VBox xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gamersnationgui.gamersnation.player.PlayerController">
     <GridPane>
-        <Label fx:id="signUpLbl" text="Summoner Name" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Label styleClass="" fx:id="signUpLbl" text="Summoner Name" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
         <TextField fx:id="summonerNameField" maxWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
         <Button fx:id="findPlayer" text="Find Summoner" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
 

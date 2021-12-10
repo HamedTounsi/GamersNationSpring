@@ -19,6 +19,7 @@ import static org.springframework.data.util.CastUtils.cast;
 @RequestMapping(path = "api/v1/player")
 public class PlayerController {
     private final PlayerService playerService;
+
     String responesBodyOnSummonerName;
     String responesBodyOnSummonerID;
     String summonerID;
