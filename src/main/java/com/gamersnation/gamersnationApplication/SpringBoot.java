@@ -1,4 +1,4 @@
-package com.gamersnationgui.gamersnation;
+package com.gamersnation.gamersnationApplication;
 
 import javafx.application.Application;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

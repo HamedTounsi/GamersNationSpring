@@ -1,17 +1,12 @@
-package com.gamersnationgui.gamersnation.player;
+package com.gamersnation.gamersnationApplication.player;
 
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-
-import static org.springframework.data.util.CastUtils.cast;
 
 //This is the API Layer tilføjet til et nyt class for sig selv test
 @Component

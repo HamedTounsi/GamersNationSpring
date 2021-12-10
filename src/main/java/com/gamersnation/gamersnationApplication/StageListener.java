@@ -1,10 +1,9 @@
-package com.gamersnationgui.gamersnation;
+package com.gamersnation.gamersnationApplication;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.fxml.*;
-import javafx.util.Callback;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;

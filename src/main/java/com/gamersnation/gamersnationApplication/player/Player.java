@@ -1,4 +1,4 @@
-package com.gamersnationgui.gamersnation.player;
+package com.gamersnation.gamersnationApplication.player;
 
 import javax.persistence.*;
 

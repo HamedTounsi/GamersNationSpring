@@ -1,7 +1,5 @@
-package com.gamersnationgui.gamersnation.player;
+package com.gamersnation.gamersnationApplication.player;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import com.google.gson.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +12,6 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import static org.springframework.data.util.CastUtils.cast;
 
 @Service
 public class PlayerService {
