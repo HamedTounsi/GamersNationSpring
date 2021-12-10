@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.springframework.data.util.CastUtils.cast;
 
-//This is the API Layer tilføjet til et nyt class for sig selv
+//This is the API Layer tilføjet til et nyt class for sig selv test
 @Component
 @RestController
 @RequestMapping(path = "api/v1/player")
