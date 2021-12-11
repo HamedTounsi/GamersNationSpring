@@ -1,5 +1,6 @@
 package com.gamersnation.gamersnationApplication.player;
 
+import com.gamersnation.gamersnationApplication.ExternalAPIManagers.RiotAPIManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import java.util.List;
 @RequestMapping(path = "api/v1/player")
 public class PlayerController {
     private final PlayerService playerService;
+    private final RiotAPIManager riotAPIManager = new RiotAPIManager();
 
     String responesBodyOnSummonerName;
     String responesBodyOnSummonerID;
@@ -52,11 +54,11 @@ public class PlayerController {
     @FXML
     public void initialize(){
         this.findPlayer.setOnAction(actionEvent -> {
-            responesBodyOnSummonerName = playerService.httpRequestBySummonername(summonerNameField.getText());
-            summonerID = playerService.parseEncryptedSummonerID(responesBodyOnSummonerName);
-            this.playerLvl.setText(""+playerService.parseLvl(responesBodyOnSummonerName));
-            responesBodyOnSummonerID = playerService.httpRequestByEncryptedSummonerID(summonerID);
-            this.playerRank.setText(playerService.parseRank(responesBodyOnSummonerID));
+            responesBodyOnSummonerName = riotAPIManager.httpRequestBySummonername(summonerNameField.getText());
+            summonerID = riotAPIManager.parseEncryptedSummonerID(responesBodyOnSummonerName);
+            this.playerLvl.setText(""+riotAPIManager.parseLvl(responesBodyOnSummonerName));
+            responesBodyOnSummonerID = riotAPIManager.httpRequestByEncryptedSummonerID(summonerID);
+            this.playerRank.setText(riotAPIManager.parseRank(responesBodyOnSummonerID));
             this.showSummonerName.setText(this.summonerNameField.getText());
         });
         this.modeChoiceBox.getItems().add("Ranked");
