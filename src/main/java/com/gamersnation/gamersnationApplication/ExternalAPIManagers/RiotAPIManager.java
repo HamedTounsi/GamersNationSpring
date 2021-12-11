@@ -15,6 +15,7 @@ import java.net.http.HttpResponse;
 public class RiotAPIManager {
 
     public String httpRequestBySummonername(String summonerName){
+        summonerName = summonerName.replace(" ",""); //Sletter/erstatter alle mellemrum
         if (summonerName != null) {
             try {
                 HttpClient client = HttpClient.newHttpClient();

@@ -6,12 +6,11 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContextInitializer;
-import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
 
 
-public class GamersNationApplication extends Application {
+public class JavaFXApplication extends Application {
 
     private ConfigurableApplicationContext context;
 
@@ -20,7 +19,7 @@ public class GamersNationApplication extends Application {
 
         ApplicationContextInitializer<GenericApplicationContext> initializer =
                 applicationContext -> {
-                        applicationContext.registerBean(Application.class, ()-> GamersNationApplication.this);
+                        applicationContext.registerBean(Application.class, ()-> JavaFXApplication.this);
                         applicationContext.registerBean(Parameters.class, this::getParameters);
                         applicationContext.registerBean(HostServices.class, this::getHostServices);
                     };
@@ -40,15 +39,5 @@ public class GamersNationApplication extends Application {
     public void stop() throws Exception {
         this.context.close();
         Platform.exit();
-    }
-}
-
-class StageReadyEvent extends ApplicationEvent {
-    public Stage getStage(){
-        return Stage.class.cast(getSource());
-    }
-
-    public StageReadyEvent(Stage source) {
-        super(source);
     }
 }

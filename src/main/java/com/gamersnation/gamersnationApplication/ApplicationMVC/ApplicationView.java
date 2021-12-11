@@ -1,5 +1,6 @@
-package com.gamersnation.gamersnationApplication;
+package com.gamersnation.gamersnationApplication.ApplicationMVC;
 
+import com.gamersnation.gamersnationApplication.StageReadyEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -14,14 +15,14 @@ import java.io.IOException;
 import java.net.URL;
 
 @Component
-public class StageListener implements ApplicationListener<StageReadyEvent> {
+public class ApplicationView implements ApplicationListener<StageReadyEvent>{
 
     private final String applicationTitle;
     private final Resource fxml;
     private final ApplicationContext applicationContext;
 
-    StageListener(@Value("${spring.application.ui.title}") String applicationTitle,
-                  @Value("classpath:/GUI.fxml") Resource resource, ApplicationContext applicationContext) {
+    ApplicationView(@Value("${spring.application.ui.title}") String applicationTitle,
+                    @Value("classpath:/GUI.fxml") Resource resource, ApplicationContext applicationContext) {
         this.applicationTitle = applicationTitle;
         this.fxml = resource;
         this.applicationContext = applicationContext;
@@ -44,3 +45,4 @@ public class StageListener implements ApplicationListener<StageReadyEvent> {
         }
     }
 }
+
