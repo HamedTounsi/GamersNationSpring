@@ -6,7 +6,7 @@ import javafx.scene.control.*;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class PlayerController {
+public class ApplicationController {
     private final RiotAPIManager riotAPIManager = new RiotAPIManager();
 
     String responesBodyOnSummonerName;

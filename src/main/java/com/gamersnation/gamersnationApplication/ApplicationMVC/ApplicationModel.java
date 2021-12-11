@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PlayerService {
+public class ApplicationModel {
 
     private final RestAPIManagerRepository APIRepository;
 
     @Autowired
-    public PlayerService(RestAPIManagerRepository APIRepository) {
+    public ApplicationModel(RestAPIManagerRepository APIRepository) {
         this.APIRepository = APIRepository;
     }
 

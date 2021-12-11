@@ -1,7 +1,7 @@
 package com.gamersnation.gamersnationApplication.RestAPIManagers;
 
 import com.gamersnation.gamersnationApplication.player.Player;
-import com.gamersnation.gamersnationApplication.ApplicationMVC.PlayerService;
+import com.gamersnation.gamersnationApplication.ApplicationMVC.ApplicationModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -15,21 +15,21 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "api/v1/player")
 public class RestAPIManager {
-    private final PlayerService playerService;
+    private final ApplicationModel applicationModel;
 
     @Autowired
-    public RestAPIManager(PlayerService playerService) {
-        this.playerService = playerService;
+    public RestAPIManager(ApplicationModel applicationModel) {
+        this.applicationModel = applicationModel;
     }
 
     @GetMapping
     public List<Player> getPlayer() {
-        return playerService.getPlayer();
+        return applicationModel.getPlayer();
     }
 
     @PostMapping
     public void addPlayer(@RequestBody Player player){
-        playerService.addPlayer(player);
+        applicationModel.addPlayer(player);
     }
 
     @Bean
