@@ -12,6 +12,7 @@ public class ApplicationController {
     String responesBodyOnSummonerName;
     String responesBodyOnSummonerID;
     String summonerID;
+    Integer statusCode;
 
 
     @FXML
@@ -31,12 +32,20 @@ public class ApplicationController {
     @FXML
     public void initialize(){
         this.findPlayer.setOnAction(actionEvent -> {
-            responesBodyOnSummonerName = riotAPIManager.httpRequestBySummonername(summonerNameField.getText());
-            summonerID = riotAPIManager.parseEncryptedSummonerID(responesBodyOnSummonerName);
-            this.playerLvl.setText(""+riotAPIManager.parseLvl(responesBodyOnSummonerName));
-            responesBodyOnSummonerID = riotAPIManager.httpRequestByEncryptedSummonerID(summonerID);
-            this.playerRank.setText(riotAPIManager.parseRank(responesBodyOnSummonerID));
-            this.showSummonerName.setText(this.summonerNameField.getText());
+            statusCode = riotAPIManager.httpRequestBySummonernameStatusCode(summonerNameField.getText());
+            if (statusCode == 200) {
+                responesBodyOnSummonerName = riotAPIManager.httpRequestBySummonername(summonerNameField.getText());
+                summonerID = riotAPIManager.parseEncryptedSummonerID(responesBodyOnSummonerName);
+                this.playerLvl.setText("" + riotAPIManager.parseLvl(responesBodyOnSummonerName));
+                responesBodyOnSummonerID = riotAPIManager.httpRequestByEncryptedSummonerID(summonerID);
+                this.playerRank.setText(riotAPIManager.parseRank(responesBodyOnSummonerID));
+                this.showSummonerName.setText(this.summonerNameField.getText());
+            } else {
+                playerLvl.clear();
+                playerRank.clear();
+                showSummonerName.clear();
+                summonerNameField.setText("Name not Found");
+            }
         });
         this.modeChoiceBox.getItems().add("Ranked");
         this.modeChoiceBox.getItems().add("Normal");
