@@ -1,14 +1,10 @@
-package com.gamersnation.gamersnationApplication.player;
+package com.gamersnation.gamersnationApplication.ApplicationMVC;
 
-import com.google.gson.*;
+import com.gamersnation.gamersnationApplication.RestAPIManagers.RestAPIManagerRepository;
+import com.gamersnation.gamersnationApplication.player.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,29 +12,29 @@ import java.util.Optional;
 @Service
 public class PlayerService {
 
-    private final PlayerRepository playerRepository;
+    private final RestAPIManagerRepository APIRepository;
 
     @Autowired
-    public PlayerService(PlayerRepository playerRepository) {
-        this.playerRepository = playerRepository;
+    public PlayerService(RestAPIManagerRepository APIRepository) {
+        this.APIRepository = APIRepository;
     }
 
     public List<Player> getPlayer() {
-        return playerRepository.findAll();
+        return APIRepository.findAll();
     }
 
     // Adds a given player to gamersnationdb if the player.name doesn't already exists in the database
     public void addPlayer(Player player) {
-        Optional<Player> playerName = playerRepository.findPlayerByName(player.getName());
+        Optional<Player> playerName = APIRepository.findPlayerByName(player.getName());
         if (playerName.isPresent()){
             throw new IllegalStateException("Name has already been taken");
         } else {
-            playerRepository.save(player);
+            APIRepository.save(player);
         }
     }
 
     public ArrayList<String> getPlayers(){
-        ArrayList<String> playerNames = playerRepository.findALlPlayerNames();
+        ArrayList<String> playerNames = APIRepository.findALlPlayerNames();
         return playerNames;
     }
 }

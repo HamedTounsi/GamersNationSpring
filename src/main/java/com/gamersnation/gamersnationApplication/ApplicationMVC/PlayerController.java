@@ -1,40 +1,17 @@
-package com.gamersnation.gamersnationApplication.player;
+package com.gamersnation.gamersnationApplication.ApplicationMVC;
 
 import com.gamersnation.gamersnationApplication.ExternalAPIManagers.RiotAPIManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
 
-import java.util.List;
-
-//This is the API Layer tilføjet til et nyt class for sig selv test
-@Component
-@RestController
-@RequestMapping(path = "api/v1/player")
+@Controller
 public class PlayerController {
-    private final PlayerService playerService;
     private final RiotAPIManager riotAPIManager = new RiotAPIManager();
 
     String responesBodyOnSummonerName;
     String responesBodyOnSummonerID;
     String summonerID;
-
-    @Autowired
-    public PlayerController(PlayerService playerService) {
-        this.playerService = playerService;
-    }
-
-    @GetMapping
-    public List<Player> getPlayer() {
-        return playerService.getPlayer();
-    }
-
-    @PostMapping
-    public void addPlayer(@RequestBody Player player){
-        playerService.addPlayer(player);
-    }
 
 
     @FXML
