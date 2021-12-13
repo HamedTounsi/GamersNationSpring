@@ -1,6 +1,5 @@
 package com.gamersnation.gamersnationApplication;
 
-import com.gamersnation.gamersnationApplication.player.Player;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.application.Platform;

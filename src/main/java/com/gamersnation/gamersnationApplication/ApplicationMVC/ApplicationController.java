@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 
-import static org.springframework.data.util.CastUtils.cast;
-
 @Controller
 public class ApplicationController {
     private final RiotAPIManager riotAPIManager = new RiotAPIManager();

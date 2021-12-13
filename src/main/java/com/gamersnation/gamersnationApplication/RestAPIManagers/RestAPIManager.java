@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 //This is the API Layer tilføjet til et nyt class for sig selv test
 @Configuration
 @RestController
