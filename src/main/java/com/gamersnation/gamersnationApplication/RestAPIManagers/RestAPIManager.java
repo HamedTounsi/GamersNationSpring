@@ -1,10 +1,7 @@
 package com.gamersnation.gamersnationApplication.RestAPIManagers;
 
 import com.gamersnation.gamersnationApplication.player.Player;
-import com.gamersnation.gamersnationApplication.ApplicationMVC.ApplicationModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,39 +12,22 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "api/v1/player")
 public class RestAPIManager {
-    private final ApplicationModel applicationModel;
+    private final RestAPIManagerRepository restAPIManagerRepository;
 
     @Autowired
-    public RestAPIManager(ApplicationModel applicationModel) {
-        this.applicationModel = applicationModel;
+    public RestAPIManager(RestAPIManagerRepository restAPIManagerRepository) {
+        this.restAPIManagerRepository = restAPIManagerRepository;
     }
 
+    /*
     @GetMapping
     public List<Player> getPlayer() {
         return applicationModel.getPlayer();
-    }
+    }*/
 
-    @PostMapping
-    public void addPlayer(@RequestBody Player player){
-        applicationModel.addPlayer(player);
-    }
-
-    @Bean
-    CommandLineRunner commandLineRunner(RestAPIManagerRepository repository) {
-        return args -> {
-            Player player = new Player(
-                    "Hamed",
-                    "Hamedxoxo",
-                    true,
-                    1,
-                    "Bronze",
-                    1,
-                    1,
-                    1,
-                    1
-            );
-            repository.save(player);
-        };
+    @PostMapping(value = "/addPlayer", consumes = "application/json", produces = "application/json")
+    public void addPlayer(@RequestBody Player player) {
+        restAPIManagerRepository.save(player);
     }
 
 }

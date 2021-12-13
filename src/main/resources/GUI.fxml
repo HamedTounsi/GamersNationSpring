@@ -24,17 +24,17 @@
         <TextField fx:id="playerRank" editable="false" maxWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
 
         <Label text="Tolerance" labelFor="$toleranceSlider" GridPane.columnIndex="2" GridPane.rowIndex="11"/>
-        <Slider fx:id="toleranceSlider" GridPane.columnIndex="1" GridPane.rowIndex="11"/>
+        <Slider fx:id="toleranceSlider" min="1" max="10" showTickLabels="true" showTickMarks="true" blockIncrement="1" majorTickUnit="1" minorTickCount="0" snapToTicks="true" value="1"  GridPane.columnIndex="1" GridPane.rowIndex="11"/>
 
         <Label text="Commitment" labelFor="$commitmentSlider" GridPane.columnIndex="2" GridPane.rowIndex="12"/>
-        <Slider fx:id="commitmentSlider" GridPane.columnIndex="1" GridPane.rowIndex="12"/>
+        <Slider fx:id="commitmentSlider" min="1" max="10" showTickLabels="true" showTickMarks="true" blockIncrement="1" majorTickUnit="1" minorTickCount="0" snapToTicks="true" value="1" GridPane.columnIndex="1" GridPane.rowIndex="12"/>
 
         <Label text="Voice Chat" labelFor="$vcChoiceBox" GridPane.columnIndex="2" GridPane.rowIndex="13"/>
         <ChoiceBox fx:id="vcChoiceBox" prefWidth="150.0" value="Voice Chat" GridPane.columnIndex="1" GridPane.rowIndex="13"/>
 
         <Label text="Position" labelFor="$positionChoiceBox" GridPane.columnIndex="2" GridPane.rowIndex="14"/>
-        <ChoiceBox fx:id="positionChoiceBox" prefWidth="150.0" value="Mode" GridPane.columnIndex="1" GridPane.rowIndex="14"/>
+        <ChoiceBox fx:id="positionChoiceBox" prefWidth="150.0" value="Position" GridPane.columnIndex="1" GridPane.rowIndex="14"/>
 
-        <Button fx:id="signUpBtn" text="Sign Up" />
+        <Button fx:id="signUpBtn" text="Sign Up" GridPane.columnIndex="3" GridPane.rowIndex="15"/>
     </GridPane>
 </VBox>

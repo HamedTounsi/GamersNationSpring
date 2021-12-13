@@ -2,8 +2,7 @@ package com.gamersnation.gamersnationApplication.player;
 
 import javax.persistence.*;
 
-//Model
-@Entity
+@Entity(name = "Player")
 @Table
 public class Player{
     @Id
@@ -13,63 +12,64 @@ public class Player{
             allocationSize = 1
     )
     private String puuid;
-    private String name;
+    private String summonerName;
     private boolean mode;
-    private Integer lvl;
+    private int level;
     private String rank;
-    private Integer tolerance;
-    private Integer commitment;
-    private Integer vc;
-    private Integer position;
+    private double tolerance;
+    private double commitment;
+    private boolean voiceChat;
+    private String position;
 
     public Player(){}
 
-    public Player(String puuid,String name, boolean mode, int lvl, String rank, int tolerance, int commitment, int vc, int position){
+    public Player(String puuid,String summonerName, int level, String rank, boolean mode, double tolerance, double commitment, boolean voiceChat, String position){
         this.puuid = puuid;
-        this.name = name;
+        this.summonerName = summonerName;
         this.mode = mode;
-        this.lvl = lvl;
+        this.level = level;
         this.rank=rank;
         this.tolerance=tolerance;
         this.commitment=commitment;
-        this.vc=vc;
+        this.voiceChat=voiceChat;
         this.position=position;
     }
 
     public String getPuuid() {return puuid;}
 
-    public String getName(){
-        return name;
+    public String getSummonerName(){
+        return summonerName;
     }
 
     public boolean getMode(){
         return mode;
     }
 
-    public int getLvl(){
-        return lvl;
+    public int getLevel(){
+        return level;
     }
 
     public String getRank(){
         return rank;
     }
 
-    public int getTolerance(){
+    public double getTolerance(){
         return tolerance;
     }
 
-    public int getCommitment(){
+    public double getCommitment(){
         return commitment;
     }
 
-    public int getVc(){
-        return vc;
+    public boolean getVoiceChat(){
+        return voiceChat;
     }
 
-    public int getPosition(){
+    public String getPosition(){
         return position;
     }
 
+    /*
     public String getPositionString(){
         String positionString=null;
         if (position==1){
@@ -84,7 +84,7 @@ public class Player{
             positionString="Bot";
         }
         return positionString;
-    }
+    }*/
 
     /*
     iron
@@ -141,13 +141,13 @@ public class Player{
     public String toString() {
         return "Player{" +
                 "puuid='" + puuid + '\'' +
-                ", name='" + name + '\'' +
+                ", name='" + summonerName + '\'' +
                 ", mode=" + mode +
-                ", lvl=" + lvl +
+                ", level=" + level +
                 ", rank=" + rank +
                 ", tolerance=" + tolerance +
                 ", commitment=" + commitment +
-                ", vc=" + vc +
+                ", voiceChat=" + voiceChat +
                 ", position=" + position +
                 '}';
     }

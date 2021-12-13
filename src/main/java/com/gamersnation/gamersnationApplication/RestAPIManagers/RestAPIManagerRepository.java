@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-
 import java.util.Optional;
 
 @Component
@@ -16,9 +15,9 @@ public interface RestAPIManagerRepository extends JpaRepository<Player, String> 
 
     Optional<Player> findPlayerByPuuid(String puuid);
 
-    Optional<Player> findPlayerByName(String name);
+    Optional<Player> findPlayerBySummonerName(String name);
 
-    @Query(value = "SELECT name FROM Player")
+    @Query(value = "SELECT summonerName FROM Player")
     ArrayList<String> findALlPlayerNames();
 
 }
