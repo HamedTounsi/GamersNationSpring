@@ -3,6 +3,7 @@ package com.gamersnation.gamersnationApplication.ApplicationMVC;
 import com.gamersnation.gamersnationApplication.ExternalAPIManagers.RiotAPIManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.text.Text;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
@@ -40,6 +41,7 @@ public class ApplicationController {
     public ChoiceBox vcChoiceBox;
     public ChoiceBox positionChoiceBox;
     public Button signUpBtn;
+    public Text errortxt;
 
 
     @FXML
@@ -68,16 +70,12 @@ public class ApplicationController {
 
         this.modeChoiceBox.getItems().add("Ranked");
         this.modeChoiceBox.getItems().add("Normal");
-        if (this.modeChoiceBox.getValue() == "Ranked"){
-            chosenMode = true;
-        } else { chosenMode = false;}
+
 
 
         this.vcChoiceBox.getItems().add("On");
         this.vcChoiceBox.getItems().add("Off");
-        if (this.vcChoiceBox.getValue() == "On"){
-            chosenVoiceChat = true;
-        } else { chosenVoiceChat = false;}
+
 
         this.positionChoiceBox.getItems().add("Bot");
         this.positionChoiceBox.getItems().add("Jungle");
@@ -85,21 +83,40 @@ public class ApplicationController {
         this.positionChoiceBox.getItems().add("Support");
         this.positionChoiceBox.getItems().add("Top");
 
+        this.errortxt.setVisible(false);
+
 
         //this.playerListComBox.setItems(FXCollections.observableArrayList(playerService.getPlayers()));
 
-
         this.signUpBtn.setOnAction(actionEvent -> {
             try {
-                applicationModel.addPlayer(puuid,
-                        summonerNameField.getText(),
-                        level,
-                        rank,
-                        chosenMode,
-                        this.toleranceSlider.getValue(),
-                        this.commitmentSlider.getValue(),
-                        chosenVoiceChat,
-                        this.positionChoiceBox.getValue().toString());
+                if (this.vcChoiceBox.getValue() == "On"){
+                    chosenVoiceChat = true;
+                } else { chosenVoiceChat = false;}
+
+                if (this.modeChoiceBox.getValue() == "Ranked"){
+                    chosenMode = true;
+                } else { chosenMode = false;}
+
+                //Tjekker om alle felter er udfyldt
+                if (!showSummonerName.getText().isEmpty() &&
+                    !playerLvl.getText().isEmpty() &&
+                    !playerRank.getText().isEmpty() &&
+                    !modeChoiceBox.getValue().toString().equals("Mode") &&
+                    !vcChoiceBox.getValue().toString().equals("Voice Chat") &&
+                    !positionChoiceBox.getValue().toString().equals("Position")) {
+                        applicationModel.addPlayer(puuid,
+                            summonerNameField.getText(),
+                            level,
+                            rank,
+                            chosenMode,
+                            this.toleranceSlider.getValue(),
+                            this.commitmentSlider.getValue(),
+                            chosenVoiceChat,
+                            this.positionChoiceBox.getValue().toString());
+                        } else {
+                            this.errortxt.setVisible(true);
+                        }
             } catch (IOException e) {
                 e.printStackTrace();
             }

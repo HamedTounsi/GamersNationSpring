@@ -3,6 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.text.Text?>
 <VBox xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gamersnation.gamersnationApplication.ApplicationMVC.ApplicationController">
     <GridPane>
         <Label styleClass="" fx:id="signUpLbl" text="Summoner Name" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
@@ -36,5 +37,6 @@
         <ChoiceBox fx:id="positionChoiceBox" prefWidth="150.0" value="Position" GridPane.columnIndex="1" GridPane.rowIndex="14"/>
 
         <Button fx:id="signUpBtn" text="Sign Up" GridPane.columnIndex="3" GridPane.rowIndex="15"/>
+        <Text fx:id="errortxt" text="All fields must be must be filled!" fill="red" disable="true" GridPane.columnIndex="3" GridPane.rowIndex="16"></Text>
     </GridPane>
 </VBox>
