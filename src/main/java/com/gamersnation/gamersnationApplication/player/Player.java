@@ -14,7 +14,7 @@ public class Player{
     )
     private String puuid;
     private String summonerName;
-    private boolean mode;
+    private boolean rankMode;
     private int level;
     private String rank;
     private double tolerance;
@@ -28,8 +28,8 @@ public class Player{
     public Player(){}
 
     //Constructor without puuid and summonerName
-    public Player(boolean mode, int level, String rank, double tolerance, double commitment, boolean voiceChat, String position) {
-        this.mode = mode;
+    public Player(boolean rankMode, int level, String rank, double tolerance, double commitment, boolean voiceChat, String position) {
+        this.rankMode = rankMode;
         this.level = level;
         this.rank = rank;
         this.tolerance = tolerance;
@@ -39,10 +39,10 @@ public class Player{
     }
 
     //Constructor with all parameters
-    public Player(String puuid, String summonerName, int level, String rank, boolean mode, double tolerance, double commitment, boolean voiceChat, String position){
+    public Player(String puuid, String summonerName, int level, String rank, boolean rankMode, double tolerance, double commitment, boolean voiceChat, String position){
         this.puuid = puuid;
         this.summonerName = summonerName;
-        this.mode = mode;
+        this.rankMode = rankMode;
         this.level = level;
         this.rank=rank;
         this.tolerance=tolerance;
@@ -58,8 +58,8 @@ public class Player{
         return summonerName;
     }
 
-    public boolean getMode(){
-        return mode;
+    public boolean getRankMode(){
+        return rankMode;
     }
 
     public int getLevel(){
@@ -125,7 +125,7 @@ public class Player{
         return "Player{" +
                 "puuid='" + puuid + '\'' +
                 ", name='" + summonerName + '\'' +
-                ", mode=" + mode +
+                ", rank mode=" + rankMode +
                 ", level=" + level +
                 ", rank=" + rank +
                 ", tolerance=" + tolerance +

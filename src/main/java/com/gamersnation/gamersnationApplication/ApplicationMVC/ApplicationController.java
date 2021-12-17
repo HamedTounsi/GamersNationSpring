@@ -197,7 +197,7 @@ public class ApplicationController {
                         +"  Tolerance: "+playerDisplay.get(i).getTolerance());
                 listView.getItems().add("Position: "+playerDisplay.get(i).getPosition()
                         +"  Voice Chat: "+playerDisplay.get(i).getVoiceChat()
-                        +"  Rank Mode: "+playerDisplay.get(i).getMode());
+                        +"  Rank Mode: "+playerDisplay.get(i).getRankMode());
                 listView.getItems().add("---------------------------------------------------------------------------");
             }
         });
