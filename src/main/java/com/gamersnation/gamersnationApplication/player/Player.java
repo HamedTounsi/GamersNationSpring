@@ -1,6 +1,7 @@
 package com.gamersnation.gamersnationApplication.player;
 
 import javax.persistence.*;
+import java.util.Locale;
 
 @Entity(name = "Player")
 @Table
@@ -20,10 +21,25 @@ public class Player{
     private double commitment;
     private boolean voiceChat;
     private String position;
+    private double matchPercent;
 
+
+    //Constructor with no parameter
     public Player(){}
 
-    public Player(String puuid,String summonerName, int level, String rank, boolean mode, double tolerance, double commitment, boolean voiceChat, String position){
+    //Constructor without puuid and summonerName
+    public Player(boolean mode, int level, String rank, double tolerance, double commitment, boolean voiceChat, String position) {
+        this.mode = mode;
+        this.level = level;
+        this.rank = rank;
+        this.tolerance = tolerance;
+        this.commitment = commitment;
+        this.voiceChat = voiceChat;
+        this.position = position;
+    }
+
+    //Constructor with all parameters
+    public Player(String puuid, String summonerName, int level, String rank, boolean mode, double tolerance, double commitment, boolean voiceChat, String position){
         this.puuid = puuid;
         this.summonerName = summonerName;
         this.mode = mode;
@@ -33,6 +49,7 @@ public class Player{
         this.commitment=commitment;
         this.voiceChat=voiceChat;
         this.position=position;
+        this.matchPercent=matchPercent;
     }
 
     public String getPuuid() {return puuid;}
@@ -69,74 +86,40 @@ public class Player{
         return position;
     }
 
-    /*
-    public String getPositionString(){
-        String positionString=null;
-        if (position==1){
-            positionString="Top";
-        }else if (position==2){
-            positionString="Jungle";
-        }else if (position==3){
-            positionString="Mid";
-        }else if (position==4){
-            positionString="Support";
-        }else if (position==5){
-            positionString="Bot";
-        }
-        return positionString;
-    }*/
-
-    /*
-    iron
-    bronze
-    silver
-    gold
-    Platnum
-    diamond
-    master
-    grandmaster
-    challenger
-
-    public String rankModifyer(){
-        int rankStageint=0;
-        String rankStage="";
-        int ranksLvl=rank;
-
-        if (ranksLvl==0){
-            rankStage="unranked";
-            return rankStage;
-        }else{
-            rankStageint+=1;
-        }
-
-        while (ranksLvl>4){
-            ranksLvl-=4;
-            rankStageint+=1;
-        }
-
-        if (rankStageint==1){
-            rankStage="Iron";
-        }else if (rankStageint==2){
-            rankStage="Bronze";
-        }else if (rankStageint==3){
-            rankStage="Silver";
-        }else if (rankStageint==4){
-            rankStage="Gold";
-        }else if (rankStageint==5){
-            rankStage="Platnum";
-        }else if (rankStageint==6){
-            rankStage="Diamond";
-        }else if (rankStageint==7){
-            rankStage="Master";
-        }else if (rankStageint==8){
-            rankStage="Grand master";
-        }else if (rankStageint>=9){
-            return "Challenger";
-        }
-
-        return rankStage + " " + ranksLvl;
+    public double getMatchPercent() {
+        return matchPercent;
     }
-*/
+
+    public void setMatchPercent(double matchPercent) {
+        this.matchPercent = matchPercent;
+    }
+
+    public double rankToNumberModifyer(){
+        if (rank.toLowerCase(Locale.ROOT).contains("unranked") || rank == null){
+            return 1;
+        }else if (rank.toLowerCase(Locale.ROOT).contains("iron")){
+            return 11;
+        }else if (rank.toLowerCase(Locale.ROOT).contains("bronze")){
+            return 21;
+        }else if (rank.toLowerCase(Locale.ROOT).contains("silver")){
+            return 31;
+        }else if (rank.toLowerCase(Locale.ROOT).contains("gold")){
+            return 41;
+        }else if (rank.toLowerCase(Locale.ROOT).contains("platinum")){
+            return 51;
+        }else if (rank.toLowerCase(Locale.ROOT).contains("diamond")){
+            return 61;
+        }else if (rank.toLowerCase(Locale.ROOT).contains("master") &&
+                !rank.toLowerCase(Locale.ROOT).contains("grandmaster")){
+            return 71;
+        }else if (rank.toLowerCase(Locale.ROOT).contains("grandmaster")){
+            return 81;
+        }else if (rank.toLowerCase(Locale.ROOT).contains("challenger")){
+            return 91;
+        }
+        return 1;
+    }
+
     @Override
     public String toString() {
         return "Player{" +
@@ -149,45 +132,7 @@ public class Player{
                 ", commitment=" + commitment +
                 ", voiceChat=" + voiceChat +
                 ", position=" + position +
+                ",matchPercent=" + matchPercent+
                 '}';
     }
-
-    /*
-    public Double compatibility(Player player1, Player player2){
-        PercentCalculator myCal = new PercentCalculator();
-        double lvl = myCal.numberPercent(player1.getLvl(), player2.getLvl());
-        double rnk = myCal.numberPercent(player1.getRank(), player2.getRank());
-        double pos = myCal.pVDif(player1.getPosition(), player2.getPosition());
-        double tol = myCal.numberPercent(player1.getTolerance(), player2.getTolerance());
-        double vc = myCal.pVDif(player1.getVc(), player2.getVc());
-        double seri = myCal.numberPercent(player1.getCommitment(), player2.getCommitment());
-
-        return endMatchResult(lvl, rnk, pos, tol, vc, seri);
-    }
-
-    // Gammel toString
-    @Override
-    public String toString(){
-        String modeOfPlayer;
-        String voiceChat;
-        if(mode){
-            modeOfPlayer="ranked";
-        }else{
-            modeOfPlayer="casual";
-        }
-
-        if (vc==1){
-            voiceChat="yes";
-        }else {
-            voiceChat="no";
-        }
-
-        return ("The username of the player: "+name
-                +"\nThe mode the player whish to play: " +modeOfPlayer
-                +"\nThe level of the player is: "+lvl
-                +"\nThe rank of the player is: "+rankModifyer()
-                +"\nThe players tolerance for error is: "+tolerance
-                +"\nThe player says "+voiceChat+" to voice chat" +
-                "\nThe players preferred position is: "+getPositionString());
-    }*/
 }
