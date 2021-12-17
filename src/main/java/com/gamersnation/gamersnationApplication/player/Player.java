@@ -21,6 +21,7 @@ public class Player{
     private double commitment;
     private boolean voiceChat;
     private String position;
+    @Transient
     private double matchPercent;
 
 
