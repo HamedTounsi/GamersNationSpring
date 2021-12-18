@@ -52,7 +52,8 @@ public class ApplicationModel {
         String result = restTemplate.postForObject("http://localhost:8080/api/v1/player/addPlayer", request, String.class);
     }
 
-    public ArrayList<Player> calculateMatch(boolean mode, int level, String rank, double tolerance, double commitment, boolean voiceChat, String position){
+    public ArrayList<Player> calculateMatch(boolean mode, int level, String rank, double tolerance, double commitment,
+                                            boolean voiceChat, String position){
         List<Player> playerList = restAPIManager.getPlayerList();
         ArrayList<Player> matchedPlayers = new ArrayList<>();
         Player searchPlayer = new Player(mode, level, rank, tolerance, commitment, voiceChat, position);
