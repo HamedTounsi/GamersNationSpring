@@ -21,7 +21,8 @@ public class Player{
     private double commitment;
     private boolean voiceChat;
     private String position;
-    @Transient
+
+    @Transient //matchPercent should not be saved in our table as an attribute
     private double matchPercent;
 
 

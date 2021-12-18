@@ -68,6 +68,7 @@ public class ApplicationController {
     public ChoiceBox positionChoiceBox;
     public Button signUpBtn;
     public Text errortxt;
+    public Text nameNotFoundText;
     public Label label;
 
     @FXML
@@ -108,6 +109,7 @@ public class ApplicationController {
         this.searchVoiceChat.getItems().add("Off");
 
         this.errortxt.setVisible(false);
+        this.nameNotFoundText.setVisible(false);
 
 
         this.findPlayer.setOnAction(actionEvent -> {
@@ -122,11 +124,12 @@ public class ApplicationController {
                 this.playerLvl.setText("" + level);
                 this.playerRank.setText(rank);
                 this.showSummonerName.setText(this.summonerNameField.getText());
+                this.nameNotFoundText.setVisible(false);
             } else {
                 playerLvl.clear();
                 playerRank.clear();
                 showSummonerName.clear();
-                summonerNameField.setText("Name not Found");
+                this.nameNotFoundText.setVisible(true);
             }
         });
 

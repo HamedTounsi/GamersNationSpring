@@ -14,7 +14,7 @@
                        <ChoiceBox fx:id="positionChoiceBox" layoutX="66.0" layoutY="275.0" prefWidth="150.0" value="Position" />
                        <Label fx:id="signUpLbl" layoutX="66.0" layoutY="24.0" styleClass="" text="Summoner Name" />
                        <TextField fx:id="summonerNameField" layoutX="66.0" layoutY="45.0" maxWidth="150" />
-                       <Button fx:id="findPlayer" layoutX="291.0" layoutY="33.0" text="Find Summoner" />
+                       <Button fx:id="findPlayer" layoutX="291.0" layoutY="45.0" text="Find Summoner" />
 
                        <Label layoutX="67.0" layoutY="128.0" text="Fill your information:" />
 
@@ -43,6 +43,7 @@
                        <Button fx:id="signUpBtn" layoutX="517.0" layoutY="511.0" text="Sign Up" />
                        <Text fx:id="errortxt" disable="true" fill="red" layoutX="341.0" layoutY="528.0" text="All fields must be must be filled!" />
                        <ChoiceBox fx:id="vcChoiceBox" layoutX="67.0" layoutY="424.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" value="Voice Chat" />
+                     <Text fx:id="nameNotFoundText" disable="true" fill="red" layoutX="400.0" layoutY="62.0" text="Summoner name was not found!" />
                   </children></AnchorPane>
          </content>
        </Tab>
