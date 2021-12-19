@@ -17,6 +17,6 @@ The program is writen in Java 11, therefore you most install Java on your comput
 You also need to download and install [PostgreSQL](https://www.postgresql.org). Create a Postgre database and call it **"gamersnationdb"**.
 Otherwise if you chose to name it something els, you need to go to the *"application.properties"* file and change the name of the database to name you've chosen for your database.
 
-The program sends some HTTP GET requests to RIOT Games API. Therefore you need to get an API Key from [Riot developer portal](developer.riotgames.com) and add it in *RiotAPIManager.class*.
+The program sends some HTTP GET requests to RIOT Games API. Therefore you need to get an API Key from [Riot developer portal](https://developer.riotgames.com) and add it in *RiotAPIManager.class*.
 
 
