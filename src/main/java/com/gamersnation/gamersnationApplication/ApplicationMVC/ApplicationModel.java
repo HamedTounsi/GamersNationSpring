@@ -10,7 +10,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +23,7 @@ public class ApplicationModel {
         this.restAPIManager = restAPIManager;
     }
 
-
-    //Makes a HTTP POST request with a player to our REST API to add a player to the database
+    //Sener et HTTP POST request med en spiller til vores API for at gemme spilleren i databasen
     public void addPlayer(String puuid,String summonerName, int level, String rank, boolean mode, double tolerance, double commitment, boolean voiceChat, String position)
     throws IOException {
         RestTemplate restTemplate = new RestTemplate();
@@ -48,10 +46,10 @@ public class ApplicationModel {
         }
 
         HttpEntity<String> request = new HttpEntity<String>(playerJsonObject.toString(), headers);
-
         String result = restTemplate.postForObject("http://localhost:8080/api/v1/player/addPlayer", request, String.class);
     }
 
+    //Udføre match procent beregning af nogle givende søge kriterier og samtlige spillere i databasen
     public ArrayList<Player> calculateMatch(boolean mode, int level, String rank, double tolerance, double commitment,
                                             boolean voiceChat, String position){
         List<Player> playerList = restAPIManager.getPlayerList();
@@ -66,7 +64,8 @@ public class ApplicationModel {
         return mergeSort(matchedPlayers);
     }
 
-    public ArrayList<Player> mergeSort (ArrayList<Player> playerList){
+    //Merge sort Algoritme del 1 (Deler ArayList op)
+    public static ArrayList<Player> mergeSort(ArrayList<Player> playerList){
         if(playerList.size() == 1){
             return playerList;
         }
@@ -91,8 +90,8 @@ public class ApplicationModel {
         return playerList;
     }
 
-
-    public void merge(ArrayList<Player> playerList, ArrayList<Player> left, ArrayList<Player> right){
+    //Merge sort Algoritme del 2 (Samler ArrayList i en sortert rækkefølge)
+    public static void merge(ArrayList<Player> playerList, ArrayList<Player> left, ArrayList<Player> right){
         int leftIndex=0, rightIndex=0, playerListIndex=0;
 
         while(leftIndex<left.size() && rightIndex < right.size()){
@@ -123,31 +122,20 @@ public class ApplicationModel {
         }
     }
 
-
-
-    /*public List<Player> getPlayer() {
-        return APIRepository.findAll();
-    }*/
-
-    /*
-    public ArrayList<String> getPlayers(){
-        ArrayList<String> playerNames = APIRepository.findALlPlayerNames();
-        return playerNames;
-    }*/
-
-    /*Optional<Player> playerName = APIRepository.findPlayerBySummonerName(player.getSummonerName());
-        if (playerName.isPresent()){
-            throw new IllegalStateException("Name has already been taken");
-        } else {
-            APIRepository.save(player);
-        }*/
+    //Test method (Only used for JUnit Test)
+    public static double matchPlayers(Player player1, Player player2){
+        MatchCalculator mycal = new MatchCalculator(player1, player2);
+        return mycal.matchResult();
+    }
 }
 
+//Indlejret class til match beregning
 class MatchCalculator {
     private final Player player1;
     private final Player player2;
     private double result;
 
+    //Constructor
     public MatchCalculator(Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
@@ -173,15 +161,17 @@ class MatchCalculator {
         return this.result;
     }
 
+    //Calculation of position preference
     public double positionDif() {
         if (player1.getPosition() == player2.getPosition()) {
-            this.result = 0;
-        } else {
             this.result = 100;
+        } else {
+            this.result = 0;
         }
         return this.result;
     }
 
+    //Calculate the final match percent
     public double matchResult(){
         double levelResult=(numberPercent(player1.getLevel(),player2.getLevel())/100)*10;
         double rankResult=(numberPercent(player1.rankToNumberModifyer(),player2.rankToNumberModifyer())/100)*15;

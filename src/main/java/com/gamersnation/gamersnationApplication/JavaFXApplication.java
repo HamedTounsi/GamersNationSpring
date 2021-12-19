@@ -14,7 +14,7 @@ public class JavaFXApplication extends Application {
 
     private ConfigurableApplicationContext context;
 
-    @Override
+    @Override //Initializer Spring Beans
     public void init() throws Exception {
 
         ApplicationContextInitializer<GenericApplicationContext> initializer =

@@ -4,7 +4,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -12,7 +11,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class RiotAPIManager {
-
+    //Sender et HTTP GET Request til RIOT API med SummonerName
     public String httpRequestBySummonername(String summonerName){
         summonerName = summonerName.replace(" ",""); //Sletter/erstatter alle mellemrum
             try {
@@ -34,7 +33,7 @@ public class RiotAPIManager {
             }
         return null;
     }
-
+    //Sender et HTTP GET Request til RIOT API med SummonerName %(Returnere kun status kode)%
     public Integer httpRequestBySummonernameStatusCode(String summonerName){
         summonerName = summonerName.replace(" ",""); //Sletter/erstatter alle mellemrum
         try {
@@ -56,7 +55,7 @@ public class RiotAPIManager {
         }
         return null;
     }
-
+    //Sender et HTTP GET Request til RIOT API med SummonerID
     public String httpRequestByEncryptedSummonerID(String encryptedSummonerID){
         try {
             HttpClient client = HttpClient.newHttpClient();
@@ -78,7 +77,7 @@ public class RiotAPIManager {
             return null;
         }
     }
-
+    //Parser HTTP Respone og returnere puuid
     public String parsePuuid(String jsonLine){
         try {
             JsonElement jsonElement = new JsonParser().parse(jsonLine);
@@ -89,7 +88,7 @@ public class RiotAPIManager {
         }
 
     }
-
+    //Parser HTTP Respone og returnere level
     public Integer parseLvl(String jsonLine){
         try {
             JsonElement jsonElement = new JsonParser().parse(jsonLine);
@@ -100,7 +99,7 @@ public class RiotAPIManager {
         }
 
     }
-
+    //Parser HTTP Respone og returnere Encrypted SummonerID
     public String parseEncryptedSummonerID(String jsonLine){
         try {
             JsonElement jsonElement=new JsonParser().parse(jsonLine);
@@ -111,7 +110,7 @@ public class RiotAPIManager {
         }
 
     }
-
+    //Parser HTTP Respone og returnere Rank og tier
     public String parseRank(String jsonLine){
         try {
             JsonElement jsonElement = new JsonParser().parse(jsonLine);

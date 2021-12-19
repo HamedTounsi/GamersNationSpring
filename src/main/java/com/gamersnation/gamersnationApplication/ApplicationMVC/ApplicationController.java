@@ -1,46 +1,26 @@
 package com.gamersnation.gamersnationApplication.ApplicationMVC;
 
 import com.gamersnation.gamersnationApplication.ExternalAPIManagers.RiotAPIManager;
-import com.gamersnation.gamersnationApplication.StageReadyEvent;
 import com.gamersnation.gamersnationApplication.player.Player;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
-
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-
-import static org.springframework.data.util.CastUtils.cast;
 
 @Controller
 public class ApplicationController {
     private final RiotAPIManager riotAPIManager = new RiotAPIManager();
     private final ApplicationModel applicationModel;
-    ApplicationContext applicationContext;
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-
     private final DecimalFormat df = new DecimalFormat("00.00");
 
     public ApplicationController(ApplicationModel applicationModel) {
         this.applicationModel = applicationModel;
     }
 
-    /*
-    public void sceneSwitch() throws Exception{
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("SearchView.fxml"));
-        Stage window = (Stage)signUpBtn.getScene().getWindow();
-        window.setScene(new Scene(root, 600,600));
-    }*/
-
+    //Deklæring af klassens variabler
     String puuid;
     String responesBodyOnSummonerName;
     String responesBodyOnSummonerID;
@@ -54,7 +34,7 @@ public class ApplicationController {
     boolean chosenSearchMode;
 
 
-    @FXML
+    @FXML //UI Controls for Sign-up Tap
     public Label signUpLbl;
     public TextField summonerNameField;
     public Button findPlayer;
@@ -71,7 +51,7 @@ public class ApplicationController {
     public Text nameNotFoundText;
     public Label label;
 
-    @FXML
+    @FXML //UI Controls for Search Tap
     public Button searchBtn;
     public TextField searchLevel;
     public TextField searchRank;
@@ -82,7 +62,7 @@ public class ApplicationController {
     public Slider searchTolerance;
     public ListView listView;
 
-    @FXML
+    @FXML //initialisering af UI controls
     public void initialize(){
         this.modeChoiceBox.getItems().add("Ranked");
         this.modeChoiceBox.getItems().add("Normal");
@@ -111,7 +91,7 @@ public class ApplicationController {
         this.errortxt.setVisible(false);
         this.nameNotFoundText.setVisible(false);
 
-
+        //Event for findPlayer knap
         this.findPlayer.setOnAction(actionEvent -> {
             statusCode = riotAPIManager.httpRequestBySummonernameStatusCode(summonerNameField.getText());
             if (statusCode == 200) {
@@ -134,9 +114,7 @@ public class ApplicationController {
         });
 
 
-        //this.playerListComBox.setItems(FXCollections.observableArrayList(playerService.getPlayers()));
-
-        //Action event for the 'sign-up' Button
+        //Event for Sign-up knap
         this.signUpBtn.setOnAction(signUpBtnEvent -> {
             try {
                 if (this.vcChoiceBox.getValue() == "On"){
@@ -176,15 +154,17 @@ public class ApplicationController {
 
         //Action event for the 'Search' button
         this.searchBtn.setOnAction(actionEvent -> {
+            //Oversæt væriderne on/off til true/false
             if (this.searchVoiceChat.getValue() == "On"){
                 chosenSearchVoiceChat = true;
             } else { chosenSearchVoiceChat = false;}
 
+            //Oversæt væriderne Ranked/Normal til true/false
             if (this.searchMode.getValue() == "Ranked"){
                 chosenSearchMode = true;
             } else { chosenSearchMode = false;}
 
-
+            //Initilizer ArrayList med en liste af alle spillere sorteret efter højst match procent
             ArrayList<Player> playerDisplay = applicationModel.calculateMatch(chosenSearchMode,
                                             Integer.parseInt(searchLevel.getText()),
                                             searchRank.getText(),
@@ -192,6 +172,8 @@ public class ApplicationController {
                                             searchCommitment.getValue(),
                                             chosenSearchVoiceChat,
                                             searchPosition.getValue().toString());
+
+            //Viser de 10 spillere fra playerDisplay listen med højst match procent på GUI
             for (int i = 0; i < 10; i++) {
                 listView.getItems().add("Summoner Name: "+playerDisplay.get(i).getSummonerName() +"     "+ df.format(playerDisplay.get(i).getMatchPercent())+"% Match");
                 listView.getItems().add("Level: "+playerDisplay.get(i).getLevel()

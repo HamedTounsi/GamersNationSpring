@@ -3,15 +3,9 @@ package com.gamersnation.gamersnationApplication.player;
 import javax.persistence.*;
 import java.util.Locale;
 
-@Entity(name = "Player")
-@Table
+@Entity
 public class Player{
-    @Id
-    @SequenceGenerator( //find ud af hvad jeg laver?
-            name = "player_sequence",
-            sequenceName = "player_sequence",
-            allocationSize = 1
-    )
+    @Id //definer puuid som primary key i tabellen
     private String puuid;
     private String summonerName;
     private boolean rankMode;
@@ -22,7 +16,7 @@ public class Player{
     private boolean voiceChat;
     private String position;
 
-    @Transient //matchPercent should not be saved in our table as an attribute
+    @Transient //matchPercent skal ikke være en attributte i player tabellen
     private double matchPercent;
 
 
@@ -54,6 +48,7 @@ public class Player{
         this.matchPercent=matchPercent;
     }
 
+    //Getters og setters
     public String getPuuid() {return puuid;}
 
     public String getSummonerName(){
@@ -96,6 +91,7 @@ public class Player{
         this.matchPercent = matchPercent;
     }
 
+    //Modificerer rank fra string til en numerisk værdi
     public double rankToNumberModifyer(){
         if (rank.toLowerCase(Locale.ROOT).contains("unranked") || rank == null){
             return 1;
