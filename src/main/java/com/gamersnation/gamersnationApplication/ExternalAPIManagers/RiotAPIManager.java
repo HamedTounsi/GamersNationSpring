@@ -11,6 +11,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class RiotAPIManager {
+    private final String APIKEY = "INSERT API KEY HERE";
+
     //Sender et HTTP GET Request til RIOT API med SummonerName
     public String httpRequestBySummonername(String summonerName){
         summonerName = summonerName.replace(" ",""); //Sletter/erstatter alle mellemrum
@@ -22,7 +24,7 @@ public class RiotAPIManager {
                         .header("Accept-Language", "en-GB,en-US;q=0.9,en;q=0.8")
                         .header("Accept-Charset", "application/x-www-form-urlencoded; charset=UTF-8")
                         .header("Origin", "https://developer.riotgames.com")
-                        .header("X-Riot-Token", "RGAPI-232bfc90-0141-4d09-87cb-bd67015cd3d9")
+                        .header("X-Riot-Token", APIKEY)
                         .build();
                 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
                 return response.body();
@@ -44,7 +46,7 @@ public class RiotAPIManager {
                     .header("Accept-Language", "en-GB,en-US;q=0.9,en;q=0.8")
                     .header("Accept-Charset", "application/x-www-form-urlencoded; charset=UTF-8")
                     .header("Origin", "https://developer.riotgames.com")
-                    .header("X-Riot-Token", "RGAPI-232bfc90-0141-4d09-87cb-bd67015cd3d9")
+                    .header("X-Riot-Token", APIKEY)
                     .build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             return response.statusCode();
@@ -64,8 +66,8 @@ public class RiotAPIManager {
                     .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36 OPR/80.0.4170.91")
                     .header("Accept-Language", "en-GB,en-US;q=0.9,en;q=0.8")
                     .header("Accept-Charset", "application/x-www-form-urlencoded; charset=UTF-8")
-                    .header("Origin", "https://developer.riotgames.com")
-                    .header("X-Riot-Token", "RGAPI-232bfc90-0141-4d09-87cb-bd67015cd3d9")
+                    .header("Origin", APIKEY)
+                    .header("X-Riot-Token", "")
                     .build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             return response.body();
