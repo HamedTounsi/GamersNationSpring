@@ -42,7 +42,7 @@ class JavaFXApplicationTests {
         Player p1 = new Player("01","test1", 50, "Gold I", true, 6,
                 10, true, "Jungle");
         Player p2 = new Player("02","test2", 50, "Gold I", true, 6,
-                10, true, "Bot");
+                10, true, "Jungle");
 
         double result = ApplicationModel.matchPlayers(p1,p2);
         assertEquals(100.00, result);
