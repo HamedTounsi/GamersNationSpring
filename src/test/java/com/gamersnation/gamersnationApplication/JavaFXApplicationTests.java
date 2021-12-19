@@ -1,10 +1,10 @@
-package com.gamersnationgui.gamersnation;
+package com.gamersnation.gamersnationApplication;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class GamersNationApplicationTests {
+class JavaFXApplicationTests {
 
     @Test
     void contextLoads() {
