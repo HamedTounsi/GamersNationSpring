@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
@@ -15,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ApplicationModel {
+public class ApplicationModel implements UserDetailsService {
     RestAPIManager restAPIManager;
 
     @Autowired
@@ -47,6 +50,25 @@ public class ApplicationModel {
 
         HttpEntity<String> request = new HttpEntity<String>(playerJsonObject.toString(), headers);
         String result = restTemplate.postForObject("http://localhost:8080/api/v1/player/addPlayer", request, String.class);
+    }
+
+    public void addUser(Long id, String puuid, String summoneName, String password) throws IOException{
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        JSONObject userJsonObject = new JSONObject();
+        try {
+            userJsonObject.put("id", id);
+            userJsonObject.put("puuid", puuid);
+            userJsonObject.put("summoneName", summoneName);
+            userJsonObject.put("password", password);
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        HttpEntity<String> request = new HttpEntity<>(userJsonObject.toString(), headers);
+        String result = restTemplate.postForObject("http://localhost:8080/api/v1/player/addUser", request, String.class);
     }
 
     //Udføre match procent beregning af nogle givende søge kriterier og samtlige spillere i databasen
@@ -126,6 +148,12 @@ public class ApplicationModel {
     public static double matchPlayers(Player player1, Player player2){
         MatchCalculator mycal = new MatchCalculator(player1, player2);
         return mycal.matchResult();
+    }
+
+    //Log-in
+    @Override
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        return restAPIManager.getUserBySummonerName(userName);
     }
 }
 

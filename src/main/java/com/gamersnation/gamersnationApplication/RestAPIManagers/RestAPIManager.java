@@ -1,5 +1,6 @@
 package com.gamersnation.gamersnationApplication.RestAPIManagers;
 
+import com.gamersnation.gamersnationApplication.player.AppUser;
 import com.gamersnation.gamersnationApplication.player.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -24,6 +25,12 @@ public class RestAPIManager {
     public void addPlayer(@RequestBody Player player) {
         restAPIManagerRepository.save(player);
     }
+
+    @PostMapping(value = "/adduser", consumes = "application/json", produces = "application/json")
+    public void addUser(@RequestBody AppUser user) {restAPIManagerRepository.saveUser(user);}
+
+
+
 
     //Creates Dummy Profiles in the database
     @Bean
@@ -57,6 +64,10 @@ public class RestAPIManager {
     public List<Player> getPlayerList(){
         List<Player> playerList = restAPIManagerRepository.findAll();
         return playerList;
+    }
+
+    public AppUser getUserBySummonerName(String userName){
+        return restAPIManagerRepository.findUserByUserName(userName);
     }
 
 }
