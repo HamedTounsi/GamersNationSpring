@@ -14,20 +14,25 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "api/v1/player")
 public class RestAPIManager {
-    private final RestAPIManagerRepository restAPIManagerRepository;
+    private final PlayerRestAPIManagerRepository playerRestAPIManagerRepository;
+    private final UserRestAPIManagerRepository userRestAPIManagerRepository;
 
     @Autowired //Forbinder RestAPIManager og RestAPIManagerRepository
-    public RestAPIManager(RestAPIManagerRepository restAPIManagerRepository) {
-        this.restAPIManagerRepository = restAPIManagerRepository;
+    public RestAPIManager(PlayerRestAPIManagerRepository playerRestAPIManagerRepository, UserRestAPIManagerRepository userRestAPIManagerRepository) {
+        this.playerRestAPIManagerRepository = playerRestAPIManagerRepository;
+        this.userRestAPIManagerRepository = userRestAPIManagerRepository;
     }
 
     @PostMapping(value = "/addPlayer", consumes = "application/json", produces = "application/json")
     public void addPlayer(@RequestBody Player player) {
-        restAPIManagerRepository.save(player);
+        playerRestAPIManagerRepository.save(player);
     }
 
-    @PostMapping(value = "/adduser", consumes = "application/json", produces = "application/json")
-    public void addUser(@RequestBody AppUser user) {restAPIManagerRepository.saveUser(user);}
+    @PostMapping(value = "/addUser", consumes = "application/json", produces = "application/json")
+    public void addUser(@RequestBody AppUser user) {
+        //boolean exists = userRestAPIManagerRepository.findUserByUserName(user.getUsername()).isPresent();
+        userRestAPIManagerRepository.save(user);
+    }
 
 
 
@@ -56,18 +61,18 @@ public class RestAPIManager {
             Player player18 = new Player("18","BuffDelight", 64, "Platinum IV", true, 5, 5, false, "Mid");
             Player player19 = new Player("19","ShadesDarth", 166, "Iron III", false, 9, 7, true, "Support");
             Player player20 = new Player("20","BeediAbdi", 82, "Gold IV", true, 8, 7, true, "Support");
-            restAPIManagerRepository.saveAll(List.of(player1,player2,player3,player4,player5,player6,player7,player8,player9,player10,player11,player12,player13,player14,player15,player16,player17,player18,player19,player20));
+            playerRestAPIManagerRepository.saveAll(List.of(player1,player2,player3,player4,player5,player6,player7,player8,player9,player10,player11,player12,player13,player14,player15,player16,player17,player18,player19,player20));
         };
     }
 
     //Returns a List of all the players in the database
     public List<Player> getPlayerList(){
-        List<Player> playerList = restAPIManagerRepository.findAll();
+        List<Player> playerList = playerRestAPIManagerRepository.findAll();
         return playerList;
     }
 
     public AppUser getUserBySummonerName(String userName){
-        return restAPIManagerRepository.findUserByUserName(userName);
+        return userRestAPIManagerRepository.findUserByUserName(userName);
     }
 
 }

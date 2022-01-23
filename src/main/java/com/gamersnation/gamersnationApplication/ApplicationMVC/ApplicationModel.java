@@ -11,19 +11,24 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.gamersnation.gamersnationApplication.player.AppUserRole.USER;
+
 @Service
 public class ApplicationModel implements UserDetailsService {
     RestAPIManager restAPIManager;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public ApplicationModel(RestAPIManager restAPIManager) {
+    public ApplicationModel(RestAPIManager restAPIManager, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.restAPIManager = restAPIManager;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     //Sener et HTTP POST request med en spiller til vores API for at gemme spilleren i databasen
@@ -52,17 +57,19 @@ public class ApplicationModel implements UserDetailsService {
         String result = restTemplate.postForObject("http://localhost:8080/api/v1/player/addPlayer", request, String.class);
     }
 
-    public void addUser(Long id, String puuid, String summoneName, String password) throws IOException{
+    public void addUser(String puuid, String summonerName, String password) throws IOException{
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
+        String encodedPassword = bCryptPasswordEncoder.encode(password);
+
         JSONObject userJsonObject = new JSONObject();
         try {
-            userJsonObject.put("id", id);
             userJsonObject.put("puuid", puuid);
-            userJsonObject.put("summoneName", summoneName);
-            userJsonObject.put("password", password);
+            userJsonObject.put("summonerName", summonerName);
+            userJsonObject.put("password", encodedPassword);
+            userJsonObject.put("appUserRole", USER);
         } catch (JSONException e){
             e.printStackTrace();
         }
