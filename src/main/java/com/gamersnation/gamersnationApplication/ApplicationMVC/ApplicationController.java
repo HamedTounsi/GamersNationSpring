@@ -35,6 +35,7 @@ public class ApplicationController {
 
 
     @FXML //UI Controls for Sign-up Tap
+    public TabPane tabPane;
     public Label signUpLbl;
     public TextField summonerNameField;
     public Button findPlayer;
@@ -50,6 +51,8 @@ public class ApplicationController {
     public Text errortxt;
     public Text nameNotFoundText;
     public Label label;
+    public PasswordField passwordField;
+    public Tab signUpTab;
 
     @FXML //UI Controls for Search Tap
     public Button searchBtn;
@@ -61,9 +64,20 @@ public class ApplicationController {
     public Slider searchCommitment;
     public Slider searchTolerance;
     public ListView listView;
+    public Tab searchTab;
+
+
+    @FXML //UI Controls for Login Tap
+    public PasswordField loginPasswordField;
+    public TextField loginUsernameField;
+    public Button loginButton;
+    public Tab LoginTab;
+    public Text loginErrorTxt;
 
     @FXML //initialisering af UI controls
     public void initialize(){
+        this.tabPane.getTabs().remove(searchTab);
+
         this.modeChoiceBox.getItems().add("Ranked");
         this.modeChoiceBox.getItems().add("Normal");
 
@@ -89,6 +103,7 @@ public class ApplicationController {
         this.searchVoiceChat.getItems().add("Off");
 
         this.errortxt.setVisible(false);
+        this.loginErrorTxt.setVisible(false);
         this.nameNotFoundText.setVisible(false);
 
         //Event for findPlayer knap
@@ -131,7 +146,8 @@ public class ApplicationController {
                     !playerRank.getText().isEmpty() &&
                     !modeChoiceBox.getValue().toString().equals("Mode") &&
                     !vcChoiceBox.getValue().toString().equals("Voice Chat") &&
-                    !positionChoiceBox.getValue().toString().equals("Position")) {
+                    !positionChoiceBox.getValue().toString().equals("Position") &&
+                    !passwordField.getText().isEmpty()) {
                         applicationModel.addPlayer(puuid,
                             summonerNameField.getText(),
                             level,
@@ -141,6 +157,8 @@ public class ApplicationController {
                             this.commitmentSlider.getValue(),
                             chosenVoiceChat,
                             this.positionChoiceBox.getValue().toString());
+                        applicationModel.addUser(puuid,summonerNameField.getText(),passwordField.getText());
+                        this.tabPane.getTabs().remove(signUpTab);
                         } else {
                             this.errortxt.setVisible(true);
                         }
@@ -148,6 +166,16 @@ public class ApplicationController {
                 e.printStackTrace();
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+        });
+
+        this.loginButton.setOnAction(actionEvent -> {
+            if (applicationModel.LoginMatch(loginUsernameField.getText(), loginPasswordField.getText())){
+                this.tabPane.getTabs().remove(LoginTab);
+                this.tabPane.getTabs().remove(signUpTab);
+                this.tabPane.getTabs().add(0, searchTab);
+            } else {
+                this.loginErrorTxt.setVisible(true);
             }
         });
 

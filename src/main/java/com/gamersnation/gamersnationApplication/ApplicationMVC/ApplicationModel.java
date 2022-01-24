@@ -158,6 +158,14 @@ public class ApplicationModel implements UserDetailsService {
     }
 
     //Log-in
+    public Boolean LoginMatch(String lUsername, String lPassword){
+        if (lUsername.equals(restAPIManager.getUserNameByUserName(lUsername)) &&
+                bCryptPasswordEncoder.matches(lPassword, restAPIManager.getPasswordByUserName(lUsername))){
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         return restAPIManager.getUserBySummonerName(userName);

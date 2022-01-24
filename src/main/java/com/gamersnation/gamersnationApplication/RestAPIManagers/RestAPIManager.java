@@ -75,4 +75,11 @@ public class RestAPIManager {
         return userRestAPIManagerRepository.findUserByUserName(userName);
     }
 
+    public String getUserNameByUserName(String userName){
+        return userRestAPIManagerRepository.findUserNameByUserName(userName);
+    }
+
+    public String getPasswordByUserName(String userName){
+        return userRestAPIManagerRepository.findPasswordByUserName(userName);
+    }
 }

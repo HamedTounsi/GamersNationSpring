@@ -14,4 +14,10 @@ public interface UserRestAPIManagerRepository extends JpaRepository<AppUser, Lon
 
     @Query(value = "SELECT summonerName FROM AppUser")
     AppUser findUserByUserName(String userName);
+
+    @Query(value = "SELECT summonerName FROM AppUser")
+    String findUserNameByUserName(String userName);
+
+    @Query("select password from AppUser where upper(summonerName) = upper(?1)")
+    String findPasswordByUserName(String summonerName);
 }
