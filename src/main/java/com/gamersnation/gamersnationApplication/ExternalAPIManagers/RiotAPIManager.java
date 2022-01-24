@@ -11,7 +11,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class RiotAPIManager {
-    private final String APIKEY = "INSERT_API_KEY_HERE!";
+    private final String APIKEY = "INSERT_API_KEY_HERE!!";
 
     //Sender et HTTP GET Request til RIOT API med SummonerName
     public String httpRequestBySummonername(String summonerName){
